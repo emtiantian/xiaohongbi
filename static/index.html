@@ -23,9 +23,7 @@
     .container { max-width: 640px; margin: 0 auto; padding: 16px; }
 
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 20px 4px 16px;
     }
     .header-left { display: flex; align-items: center; gap: 10px; }
@@ -34,115 +32,81 @@
     .header-right { font-size: 13px; color: #86868b; }
 
     .main-tabs {
-      display: flex;
-      gap: 0;
-      margin-bottom: 16px;
-      background: #e8e8ed;
-      border-radius: 12px;
-      padding: 3px;
+      display: flex; gap: 0; margin-bottom: 16px;
+      background: #e8e8ed; border-radius: 12px; padding: 3px;
     }
     .main-tab {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #86868b;
-      background: transparent;
-      cursor: pointer;
-      transition: all .25s;
+      flex: 1; padding: 10px; text-align: center; border: none;
+      border-radius: 10px; font-size: 15px; font-weight: 600;
+      color: #86868b; background: transparent; cursor: pointer; transition: all .25s;
     }
     .main-tab.active { background: #fff; color: #1d1d1f; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* 风格卡片选择 */
     .style-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 16px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px;
     }
     .style-card {
-      background: #fff;
-      border: 2px solid transparent;
-      border-radius: 14px;
-      padding: 14px 8px;
-      text-align: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,.06);
-      cursor: pointer;
-      transition: all .2s;
-      user-select: none;
+      background: #fff; border: 2px solid transparent; border-radius: 12px;
+      padding: 10px 4px; text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06); cursor: pointer; transition: all .2s; user-select: none;
     }
-    .style-card:active { transform: scale(.96); }
-    .style-card .emoji { font-size: 22px; display: block; margin-bottom: 4px; }
-    .style-card .label { font-size: 13px; font-weight: 600; }
+    .style-card:active { transform: scale(.95); }
+    .style-card .emoji { font-size: 20px; display: block; margin-bottom: 2px; }
+    .style-card .label { font-size: 12px; font-weight: 600; }
     .style-card.selected { border-color: #FF2442; background: #fff5f5; }
+    @media (max-width: 420px) {
+      .style-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
 
-    /* 输入区 */
     .input-section {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
+      background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
     .input-section label {
       display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f;
     }
+    .input-section .label-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+    }
+    .input-section .label-row .hint { font-size: 12px; color: #86868b; font-weight: 400; }
+
     .topic-input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid #e5e5ea;
-      border-radius: 12px;
-      font-size: 16px;
-      font-family: inherit;
-      background: #fafafa;
+      width: 100%; padding: 14px 16px; border: 1.5px solid #e5e5ea;
+      border-radius: 12px; font-size: 16px; font-family: inherit; background: #fafafa;
       transition: border-color .2s;
     }
     .topic-input:focus { outline: none; border-color: #FF2442; background: #fff; }
 
+    .ref-input {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #e5e5ea;
+      border-radius: 12px; font-size: 14px; font-family: inherit; background: #fafafa;
+      resize: vertical; min-height: 80px; line-height: 1.5;
+      transition: border-color .2s;
+    }
+    .ref-input:focus { outline: none; border-color: #FF2442; background: #fff; }
+
     .length-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
+      display: flex; gap: 8px; margin-top: 16px;
     }
     .length-btn {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      background: #f0f0f3;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #86868b;
-      cursor: pointer;
-      transition: all .2s;
+      flex: 1; padding: 10px; text-align: center;
+      background: #f0f0f3; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 500; color: #86868b; cursor: pointer; transition: all .2s;
     }
     .length-btn.active { background: #1d1d1f; color: #fff; }
 
     .btn-primary {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #FF2442, #FF6B7A);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity .2s, transform .1s;
-      margin-top: 16px;
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, #FF2442, #FF6B7A); color: #fff;
+      border: none; border-radius: 12px; font-size: 17px; font-weight: 600;
+      cursor: pointer; transition: opacity .2s, transform .1s; margin-top: 16px;
     }
     .btn-primary:active { transform: scale(.97); opacity: .85; }
     .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
 
-    .loading {
-      text-align: center; padding: 40px 0; display: none;
-    }
+    .loading { text-align: center; padding: 40px 0; display: none; }
     .loading .spinner {
       display: inline-block; width: 32px; height: 32px;
       border: 3px solid #e5e5ea; border-top-color: #FF2442; border-radius: 50%;
@@ -152,96 +116,53 @@
     .loading p { margin-top: 12px; font-size: 14px; color: #86868b; }
 
     .error-msg {
-      background: #fff0f0; color: #c41e3a; padding: 14px 16px; border-radius: 12px; font-size: 14px; display: none; margin-top: 12px;
+      background: #fff0f0; color: #c41e3a; padding: 14px 16px;
+      border-radius: 12px; font-size: 14px; display: none; margin-top: 12px;
     }
 
-    /* 结果 */
     .result-item {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      background: #fff; border-radius: 16px; overflow: hidden;
+      margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
     .cover-img {
-      width: 100%;
-      height: 200px;
+      width: 100%; height: 180px;
       background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #c41e3a;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #c41e3a; text-align: center; padding: 20px; line-height: 1.5;
     }
-    .cover-img .cover-text {
-      text-align: center;
-      padding: 20px;
-      line-height: 1.5;
-      font-size: 13px;
-    }
-    .cover-img .refresh-cover {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(255,255,255,.9);
-      border: none;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .result-body {
-      padding: 16px 20px 20px;
-    }
-    .result-title {
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-    .result-content {
-      font-size: 15px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-      word-break: break-word;
-      color: #3a3a3c;
-    }
-    .result-tags {
-      margin-top: 12px;
-      font-size: 13px;
-      color: #FF2442;
-    }
-    .result-actions {
-      display: flex;
-      gap: 8px;
-      padding: 0 20px 20px;
-    }
+    .result-body { padding: 16px 20px 12px; }
+    .result-title { font-size: 17px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+    .result-content { font-size: 15px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; color: #3a3a3c; }
+    .result-tags { margin-top: 10px; font-size: 13px; color: #FF2442; }
+    .result-actions { display: flex; gap: 8px; padding: 0 20px 20px; }
     .result-actions button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
+      flex: 1; padding: 12px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s;
     }
     .btn-copy { background: #f0f0f3; color: #1d1d1f; }
     .btn-copy:active { background: #e0e0e5; }
-    .btn-copy-all { background: #FF2442; color: #fff; }
-    .btn-copy-all:active { opacity: .85; }
+    .btn-xhs { background: #FF2442; color: #fff; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .btn-xhs:active { opacity: .85; }
+    .btn-xhs .icon { font-size: 16px; }
 
-    /* 历史 */
+    .toast {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: rgba(0,0,0,.8); color: #fff; padding: 14px 24px;
+      border-radius: 12px; font-size: 15px; z-index: 200;
+      animation: toastAnim 1.8s forwards; pointer-events: none;
+    }
+    @keyframes toastAnim {
+      0% { opacity:1; transform:translate(-50%,-50%) scale(.9); }
+      15% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+      75% { opacity:1; }
+      100% { opacity:0; }
+    }
+
     .history-list { margin-top: 16px; }
     .history-empty { text-align: center; padding: 48px 20px; color: #86868b; font-size: 14px; }
     .history-empty .big-emoji { font-size: 48px; margin-bottom: 12px; }
     .history-item {
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
+      background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px;
       box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
     .history-item .meta { font-size: 12px; color: #86868b; margin-bottom: 8px; display: flex; justify-content: space-between; }
@@ -250,6 +171,7 @@
     .history-item .actions button { flex: 1; padding: 8px; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
     .history-item .actions .view-btn { background: #f0f0f3; color: #1d1d1f; }
     .history-item .actions .del-btn { background: #fff0f0; color: #c41e3a; }
+    .history-badge { display:none; background:#FF2442; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:4px; }
 
     .modal-overlay {
       display: none; position: fixed; top:0;left:0;right:0;bottom:0;
@@ -265,12 +187,11 @@
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     .modal-content .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-content .modal-header h3 { font-size: 18px; }
-    .modal-content .modal-close { background: none; border: none; font-size: 24px; color: #86868b; cursor: pointer; padding: 4px; }
-    .modal-body .modal-version { margin-bottom: 16px; }
-    .modal-body .modal-version .v-label { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 6px; }
-    .modal-body .modal-version .v-box { background: #fff; border-radius: 12px; padding: 14px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 14px; }
+    .modal-close { background: none; border: none; font-size: 24px; color: #86868b; cursor: pointer; padding: 4px; }
+    .modal-body .mv { margin-bottom: 14px; }
+    .modal-body .mv .vl { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 6px; }
+    .modal-body .mv .vb { background: #fff; border-radius: 12px; padding: 14px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 14px; }
 
-    .history-badge { display:none; background:#FF2442; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:4px; }
     .footer { text-align: center; padding: 24px 0; font-size: 12px; color: #c7c7cc; }
   </style>
 </head>
@@ -281,7 +202,7 @@
       <span class="icon">🖊️</span>
       <h1>小红笔</h1>
     </div>
-    <div class="header-right">小红书文案</div>
+    <div class="header-right">基于真实素材</div>
   </div>
 
   <div class="main-tabs">
@@ -295,11 +216,19 @@
       <label>文案风格</label>
       <div class="style-grid" id="styleGrid"></div>
 
-      <label for="topic">描述你的产品 / 话题</label>
-      <input class="topic-input" id="topic" placeholder='比如：平价面霜、周末去哪玩、今天做的饭...' autocomplete="off">
+      <label for="topic">话题 / 产品名称</label>
+      <input class="topic-input" id="topic" placeholder="比如：水果捞、平价面霜、周末去哪..." autocomplete="off">
+
+      <div style="margin-top:16px;">
+        <div class="label-row">
+          <label for="refs">参考信息（选填）</label>
+          <span class="hint">填了AI就不会瞎编</span>
+        </div>
+        <textarea class="ref-input" id="refs" placeholder="把你了解的真实信息写在这里，AI只会基于这些写&#10;比如：&#10;水果：芒果、西瓜、火龙果、葡萄&#10;价格：15元/斤自选，椰奶底+5元&#10;位置：学校北门第二个摊位&#10;口感：清爽不腻，椰奶味很浓"></textarea>
+      </div>
 
       <label style="margin-top:16px;display:block;">文案篇幅</label>
-      <div class="length-row" id="lengthRow">
+      <div class="length-row">
         <button class="length-btn" data-length="短">短 50-100字</button>
         <button class="length-btn active" data-length="中">中 150-250字</button>
         <button class="length-btn" data-length="长">长 300-500字</button>
@@ -321,7 +250,7 @@
     <div class="history-list" id="historyList"></div>
   </div>
 
-  <div class="footer">由 DeepSeek 提供支持 · 小红书专属文案工具</div>
+  <div class="footer">基于 DeepSeek · 小红书专属文案工具</div>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -335,18 +264,20 @@
 </div>
 
 <script>
-// ======== 配置 ========
+// ======== 风格配置 ========
 const STYLE_LIST = [
-  { emoji: '🌿', label: '种草' },
-  { emoji: '⚠️', label: '避雷' },
-  { emoji: '🔍', label: '测评' },
-  { emoji: '🎁', label: '好物分享' },
-  { emoji: '📖', label: '教程' },
-  { emoji: '☀️', label: '日常' },
-  { emoji: '👗', label: '穿搭' },
-  { emoji: '🍜', label: '美食' },
-  { emoji: '✈️', label: '旅行' },
-  { emoji: '💬', label: '情绪共鸣' },
+  { emoji: '🌿', label: '种草' },     { emoji: '⚠️', label: '避雷' },
+  { emoji: '🔍', label: '测评' },     { emoji: '🎁', label: '好物分享' },
+  { emoji: '📖', label: '教程' },     { emoji: '☀️', label: '日常' },
+  { emoji: '👗', label: '穿搭' },     { emoji: '🍜', label: '美食' },
+  { emoji: '✈️', label: '旅行' },     { emoji: '💬', label: '情绪共鸣' },
+];
+
+const COVER_COLORS = [
+  ['#fce4ec','#f8bbd0'], ['#e3f2fd','#bbdefb'], ['#fff3e0','#ffe0b2'],
+  ['#e8f5e9','#c8e6c9'], ['#f3e5f5','#e1bee7'], ['#e0f7fa','#b2ebf2'],
+  ['#fff8e1','#ffecb3'], ['#fbe9e7','#ffccbc'], ['#f1f8e9','#dcedc8'],
+  ['#ede7f6','#d1c4e9'],
 ];
 
 // ======== PWA ========
@@ -354,11 +285,11 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'));
 }
 
-// ======== 初始化风格卡片 ========
+// ======== 风格卡片 ========
 const styleGrid = document.getElementById('styleGrid');
 let selectedStyle = '种草';
 
-STYLE_LIST.forEach(s => {
+STYLE_LIST.forEach((s, i) => {
   const card = document.createElement('div');
   card.className = `style-card${s.label === selectedStyle ? ' selected' : ''}`;
   card.dataset.style = s.label;
@@ -371,14 +302,13 @@ STYLE_LIST.forEach(s => {
   styleGrid.appendChild(card);
 });
 
-// ======== 长度选择 ========
+// ======== 长度 ========
 document.querySelectorAll('.length-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.length-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   });
 });
-
 function getSelectedLength() {
   return document.querySelector('.length-btn.active')?.dataset.length || '中';
 }
@@ -389,22 +319,17 @@ const STORAGE_KEY = 'xiaohongbi_history';
 function getHistory() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
 }
-
-function saveToHistory(topic, style, versions) {
+function saveToHistory(topic, style, refs, versions) {
   const list = getHistory();
-  list.unshift({ id: Date.now(), topic, style, versions, time: new Date().toLocaleString('zh-CN') });
+  list.unshift({ id: Date.now(), topic, style, refs, versions, time: new Date().toLocaleString('zh-CN') });
   if (list.length > 50) list.length = 50;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   updateBadge();
 }
-
 function deleteHistory(id) {
-  let list = getHistory().filter(i => i.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  updateBadge();
-  renderHistory();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(getHistory().filter(i => i.id !== id)));
+  updateBadge(); renderHistory();
 }
-
 function updateBadge() {
   const badge = document.getElementById('historyBadge');
   const count = getHistory().length;
@@ -439,7 +364,7 @@ function openHistoryDetail(id) {
   const body = document.getElementById('modalBody');
   body.innerHTML = (item.versions || []).map((v, i) => {
     const text = v.content || v;
-    return `<div class="modal-version"><div class="v-label">版本 ${i+1}</div><div class="v-box">${esc(text)}</div></div>`;
+    return `<div class="mv"><div class="vl">版本 ${i+1}</div><div class="vb">${esc(text)}</div></div>`;
   }).join('');
   document.getElementById('modalOverlay').classList.add('active');
 }
@@ -450,7 +375,7 @@ function esc(t) { const d = document.createElement('div'); d.textContent = t; re
 document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modalOverlay').classList.remove('active'));
 document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) document.getElementById('modalOverlay').classList.remove('active'); });
 
-// ======== 主 Tab ========
+// ======== Tab ========
 document.querySelectorAll('.main-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
@@ -461,39 +386,59 @@ document.querySelectorAll('.main-tab').forEach(btn => {
   });
 });
 
+// ======== Toast ========
+function toast(msg) {
+  const d = document.createElement('div');
+  d.className = 'toast';
+  d.textContent = msg;
+  document.body.appendChild(d);
+  setTimeout(() => d.remove(), 1900);
+}
+
 // ======== 生成 ========
 const topicInput = document.getElementById('topic');
+const refsInput = document.getElementById('refs');
 const generateBtn = document.getElementById('generateBtn');
 const loading = document.getElementById('loading');
 const errorMsg = document.getElementById('errorMsg');
 const resultArea = document.getElementById('resultArea');
 
 let currentVersions = [];
+let currentTopic = '';
 
 generateBtn.addEventListener('click', generate);
 topicInput.addEventListener('keydown', e => { if (e.key === 'Enter') generate(); });
 
 async function generate() {
   const topic = topicInput.value.trim();
-  if (!topic) { showError('请输入话题或产品关键词'); topicInput.focus(); return; }
+  if (!topic) { showError('请输入话题或产品名称'); topicInput.focus(); return; }
 
+  currentTopic = topic;
   hideError();
   resultArea.innerHTML = '';
   loading.style.display = 'block';
   generateBtn.disabled = true;
 
   try {
+    const body = {
+      topic,
+      style: selectedStyle,
+      length: getSelectedLength(),
+      count: 2,
+      references: refsInput.value.trim(),
+    };
+
     const res = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ topic, style: selectedStyle, length: getSelectedLength(), count: 2 }),
+      body: JSON.stringify(body),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || '生成失败');
 
     currentVersions = data.versions || [];
     renderResults(currentVersions);
-    saveToHistory(topic, selectedStyle, currentVersions);
+    saveToHistory(topic, selectedStyle, refsInput.value.trim(), currentVersions);
   } catch (err) {
     showError(err.message);
   } finally {
@@ -504,11 +449,10 @@ async function generate() {
 
 function renderResults(versions) {
   resultArea.innerHTML = versions.map((v, i) => {
-    const coverColors = ['#fce4ec,#f8bbd0', '#e3f2fd,#bbdefb', '#fff3e0,#ffe0b2', '#e8f5e9,#c8e6c9', '#f3e5f5,#e1bee7'];
-    const colors = coverColors[i % coverColors.length];
+    const colors = (COVER_COLORS[i % COVER_COLORS.length]).join(',');
     return `<div class="result-item">
       <div class="cover-img" style="background:linear-gradient(135deg,${colors})">
-        <div class="cover-text">📸 ${esc(v.coverDesc || '配图建议：' + topic)}</div>
+        📸 ${esc(v.coverDesc || topicInput.value.trim() + '相关的场景或产品图')}
       </div>
       <div class="result-body">
         <div class="result-title">${esc(v.title)}</div>
@@ -516,8 +460,8 @@ function renderResults(versions) {
         ${v.tags ? `<div class="result-tags">${esc(v.tags)}</div>` : ''}
       </div>
       <div class="result-actions">
-        <button class="btn-copy" onclick="copyText('${i}')">📋 复制正文</button>
-        <button class="btn-copy-all" onclick="copyAll('${i}')">📋 复制全部（含标题）</button>
+        <button class="btn-copy" onclick="copyAndGo(${i})">📋 复制 & 去小红书</button>
+        <button class="btn-xhs" onclick="copyAndGo(${i})"><span class="icon">📕</span> 复制 & 去发布</button>
       </div>
     </div>`;
   }).join('');
@@ -527,60 +471,57 @@ function renderResults(versions) {
 function getVersionText(i) {
   const v = currentVersions[i];
   if (!v) return '';
-  return `封面图：${v.coverDesc || ''}\n\n${v.title}\n\n${v.content}\n${v.tags || ''}`;
-}
-
-function getVersionBody(i) {
-  const v = currentVersions[i];
-  if (!v) return '';
   return `${v.title}\n\n${v.content}\n${v.tags || ''}`;
 }
 
-async function copyText(i) {
-  const text = getVersionBody(i);
-  if (!text) return;
-  try {
-    if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); }
-    else { fallbackCopy(text); }
-    flashMsg('✅ 已复制正文');
-  } catch { flashMsg('复制失败'); }
-}
-
-async function copyAll(i) {
+async function copyAndGo(i) {
   const text = getVersionText(i);
   if (!text) return;
+
+  let ok = false;
   try {
-    if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); }
-    else { fallbackCopy(text); }
-    flashMsg('✅ 已复制全部');
-  } catch { flashMsg('复制失败'); }
-}
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  } catch { ok = false; }
 
-function fallbackCopy(text) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.cssText = 'position:fixed;opacity:0';
-  document.body.appendChild(ta);
-  ta.focus(); ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
-}
+  if (ok) {
+    toast('✅ 文案已复制，正在打开小红书…');
+  } else {
+    toast('复制失败，请手动复制');
+  }
 
-function flashMsg(msg) {
-  const div = document.createElement('div');
-  div.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.8);color:#fff;padding:12px 24px;border-radius:12px;font-size:15px;z-index:200;animation:fadeOut 1.5s forwards;';
-  div.textContent = msg;
-  document.body.appendChild(div);
-  setTimeout(() => div.remove(), 1500);
+  // 尝试跳转小红书 App，失败则打开网页版
+  // iOS URL Scheme
+  const xhsURL = 'xhsshare://publish';
+  // 网页版 fallback
+  const xhsWeb = 'https://www.xiaohongshu.com/explore';
+
+  // 先试 App URL Scheme
+  const link = document.createElement('a');
+  link.href = xhsURL;
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // App 没响应就 fallback 到网页
+  setTimeout(() => {
+    window.open(xhsWeb, '_blank');
+  }, 800);
 }
 
 function showError(msg) { errorMsg.textContent = msg; errorMsg.style.display = 'block'; }
 function hideError() { errorMsg.style.display = 'none'; }
-
-// 添加 fadeOut 动画
-const style = document.createElement('style');
-style.textContent = '@keyframes fadeOut { 0% { opacity:1; } 70% { opacity:1; } 100% { opacity:0; } }';
-document.head.appendChild(style);
 
 // ======== 初始化 ========
 updateBadge();

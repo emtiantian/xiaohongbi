@@ -79,7 +79,7 @@ function deAItify(text) {
 }
 
 fastify.post('/api/generate', async (req, reply) => {
-  const { topic, style = '种草', count = 2, length = '中' } = req.body || {};
+  const { topic, style = '种草', count = 2, length = '中', references = '' } = req.body || {};
 
   if (!topic || !topic.trim()) {
     return reply.status(400).send({ error: '请输入话题/产品关键词' });
@@ -88,7 +88,13 @@ fastify.post('/api/generate', async (req, reply) => {
   const styleGuide = STYLES[style] || STYLES['种草'];
   const lengthGuide = LENGTHS[length] || LENGTHS['中'];
 
-  const systemPrompt = `你是一个真实的小红书用户，不是AI助手。你在分享你的真实体验和感受。
+  // 处理参考信息
+  const hasRefs = references && references.trim().length > 0;
+  const refSection = hasRefs
+    ? `\n\n重要：用户提供了以下参考信息，你必须只基于这些信息来写文案，不能自己编造内容。如果用户提供的信息不足，就基于你知道的常识补充，但不要捏造用户提到的具体细节：\n${references.trim()}`
+    : '\n\n注意：用户没有提供具体参考信息，你可以基于对这个话题的了解和常识来写，但不要编造过于具体的细节（如具体价格、具体店名等）。保持真实感，像在分享真实经历。';
+
+  const systemPrompt = `你是一个真实的小红书用户，不是AI助手。你在分享你的真实体验和感受。${refSection}
 
 写作要求：
 - 语气：像在跟朋友聊天，用"我"的口吻，不要用"小编""博主"这种词
@@ -101,9 +107,11 @@ fastify.post('/api/generate', async (req, reply) => {
 - 每段不超过3行，段与段之间空一行
 - 第一句话就是正文内容，不要以"标题："或"正文："开头`;
 
-  const userPrompt = `请帮我写一篇关于"${topic}"的小红书笔记，${style}风格。给我${count}个不同切入点的版本。
+  let userPrompt = hasRefs
+    ? `请基于以下参考信息，帮我写一篇关于"${topic}"的小红书笔记，${style}风格。给我${count}个不同切入点的版本。参考信息：\n${references.trim()}`
+    : `请帮我写一篇关于"${topic}"的小红书笔记，${style}风格。给我${count}个不同切入点的版本。`;
 
-每个版本用 "=== 版本 X ===" 分隔。
+  userPrompt += `\n\n每个版本用 "=== 版本 X ===" 分隔。
 
 每个版本的结构：
 - 第一行是一句话封面图描述（用"封面："开头）：描述适合配什么图，包含场景、色调、画面元素
@@ -129,11 +137,9 @@ fastify.post('/api/generate', async (req, reply) => {
         body = v.replace(coverMatch[0], '').trim();
       }
 
-      // 提取标题（正文第一段）
       const bodyLines = body.split('\n').filter(l => l.trim());
       const title = bodyLines[0]?.replace(/^[#*\s]+/, '').trim() || '';
 
-      // 提取尾部标签
       let content = body;
       const tagMatch = content.match(/(\s*#[^\s#]+\s*)+$/);
       const tags = tagMatch ? tagMatch[0].trim().replace(/\s+/g, ' ') : '';
