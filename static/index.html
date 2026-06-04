@@ -124,11 +124,7 @@
       background: #fff; border-radius: 16px; overflow: hidden;
       margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
-      width: 100%; height: 180px;
-      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; color: #c41e3a; text-align: center; padding: 20px; line-height: 1.5;
-    }
+    .result-item.picked { border: 2px solid #FF2442; background: #fff5f5; }
     .result-body { padding: 16px 20px 12px; }
     .result-title { font-size: 17px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
     .result-content { font-size: 15px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; color: #3a3a3c; }
@@ -138,11 +134,16 @@
       flex: 1; padding: 12px; border: none; border-radius: 10px;
       font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s;
     }
-    .btn-copy { background: #f0f0f3; color: #1d1d1f; }
-    .btn-copy:active { background: #e0e0e5; }
+    .btn-pick { background: #f0f0f3; color: #1d1d1f; }
+    .btn-pick:active { background: #e0e0e5; }
+    .btn-pick.picked { background: #FF2442; color: #fff; }
     .btn-xhs { background: #FF2442; color: #fff; display: flex; align-items: center; justify-content: center; gap: 4px; }
     .btn-xhs:active { opacity: .85; }
     .btn-xhs .icon { font-size: 16px; }
+    .picked-badge {
+      display: inline-block; background: #FF2442; color: #fff;
+      font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 8px;
+    }
 
     .toast {
       position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
@@ -160,17 +161,32 @@
     .history-list { margin-top: 16px; }
     .history-empty { text-align: center; padding: 48px 20px; color: #86868b; font-size: 14px; }
     .history-empty .big-emoji { font-size: 48px; margin-bottom: 12px; }
-    .history-item {
-      background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    .history-group { margin-bottom: 20px; }
+    .history-group-title {
+      font-size: 14px; font-weight: 700; color: #1d1d1f;
+      margin-bottom: 8px; padding: 0 4px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .history-item .meta { font-size: 12px; color: #86868b; margin-bottom: 8px; display: flex; justify-content: space-between; }
-    .history-item .preview { font-size: 14px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: #3a3a3c; }
-    .history-item .actions { display: flex; gap: 8px; margin-top: 10px; }
-    .history-item .actions button { flex: 1; padding: 8px; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
-    .history-item .actions .view-btn { background: #f0f0f3; color: #1d1d1f; }
-    .history-item .actions .del-btn { background: #fff0f0; color: #c41e3a; }
-    .history-badge { display:none; background:#FF2442; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:4px; }
+    .history-group-title .count { font-size: 12px; font-weight: 400; color: #86868b; }
+    .history-group .clear-btn { font-size: 12px; color: #c41e3a; background: none; border: none; cursor: pointer; padding: 4px; }
+    .history-item {
+      background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06); cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .2s;
+    }
+    .history-item.has-pick { border-color: #FF2442; }
+    .history-item:active { background: #fafafa; }
+    .history-item .meta { font-size: 12px; color: #86868b; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .history-item .meta .pick-tag { color: #FF2442; font-weight: 600; }
+    .history-item .preview {
+      font-size: 14px; line-height: 1.5; color: #3a3a3c;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .history-item .ref-preview {
+      font-size: 12px; color: #86868b; margin-top: 6px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
 
     .modal-overlay {
       display: none; position: fixed; top:0;left:0;right:0;bottom:0;
@@ -184,13 +200,38 @@
       padding: 20px; animation: slideUp .3s ease;
     }
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    .modal-content .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .modal-content .modal-header h3 { font-size: 18px; }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+      position: sticky; top: 0; background: #f5f5f7; padding-bottom: 12px; z-index: 1;
+    }
+    .modal-header h3 { font-size: 18px; }
     .modal-close { background: none; border: none; font-size: 24px; color: #86868b; cursor: pointer; padding: 4px; }
-    .modal-body .mv { margin-bottom: 14px; }
-    .modal-body .mv .vl { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 6px; }
-    .modal-body .mv .vb { background: #fff; border-radius: 12px; padding: 14px; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 14px; }
+    .modal-ref {
+      background: #fff; border-radius: 12px; padding: 12px 14px; margin-bottom: 16px;
+      font-size: 13px; color: #3a3a3c; white-space: pre-wrap; line-height: 1.5;
+    }
+    .modal-ref .r-label { font-size: 11px; color: #86868b; font-weight: 600; margin-bottom: 4px; }
+    .modal-body .mv {
+      background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 10px;
+      border: 2px solid transparent;
+    }
+    .modal-body .mv.picked { border-color: #FF2442; }
+    .modal-body .mv .vl { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 4px; }
+    .modal-body .mv .vb { white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 14px; }
+    .modal-body .mv .pick-inline {
+      display: inline-block; font-size: 11px; color: #FF2442; font-weight: 600; margin-left: 6px;
+    }
+    .modal-footer {
+      display: flex; gap: 8px; margin-top: 16px;
+    }
+    .modal-footer button {
+      flex: 1; padding: 14px; border: none; border-radius: 12px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .modal-footer .btn-del { background: #fff0f0; color: #c41e3a; }
+    .modal-footer .btn-reuse { background: #FF2442; color: #fff; }
 
+    .history-badge { display:none; background:#FF2442; color:#fff; border-radius:10px; padding:1px 6px; font-size:11px; margin-left:4px; }
     .footer { text-align: center; padding: 24px 0; font-size: 12px; color: #c7c7cc; }
   </style>
 </head>
@@ -201,7 +242,7 @@
       <span class="icon">🖊️</span>
       <h1>小红笔</h1>
     </div>
-    <div class="header-right">基于真实素材</div>
+    <div class="header-right">基于 DeepSeek</div>
   </div>
 
   <div class="main-tabs">
@@ -209,7 +250,6 @@
     <button class="main-tab" data-tab="history">📋 历史 <span class="history-badge" id="historyBadge">0</span></button>
   </div>
 
-  <!-- 生成面板 -->
   <div class="panel active" id="panel-generate">
     <div class="input-section">
       <label>文案风格</label>
@@ -244,7 +284,6 @@
     <div id="resultArea"></div>
   </div>
 
-  <!-- 历史面板 -->
   <div class="panel" id="panel-history">
     <div class="history-list" id="historyList"></div>
   </div>
@@ -255,15 +294,19 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content">
     <div class="modal-header">
-      <h3 id="modalTitle">文案详情</h3>
+      <h3 id="modalTitle">生成本详情</h3>
       <button class="modal-close" id="modalClose">✕</button>
     </div>
+    <div id="modalRef" class="modal-ref"></div>
     <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-del" id="modalDelBtn">🗑️ 删除本次</button>
+      <button class="btn-reuse" id="modalReuseBtn">📝 复用参数继续生成</button>
+    </div>
   </div>
 </div>
 
 <script>
-// ======== 风格配置 ========
 const STYLE_LIST = [
   { emoji: '🌿', label: '种草' },     { emoji: '⚠️', label: '避雷' },
   { emoji: '🔍', label: '测评' },     { emoji: '🎁', label: '好物分享' },
@@ -272,22 +315,15 @@ const STYLE_LIST = [
   { emoji: '✈️', label: '旅行' },     { emoji: '💬', label: '情绪共鸣' },
 ];
 
-  ['#fce4ec','#f8bbd0'], ['#e3f2fd','#bbdefb'], ['#fff3e0','#ffe0b2'],
-  ['#e8f5e9','#c8e6c9'], ['#f3e5f5','#e1bee7'], ['#e0f7fa','#b2ebf2'],
-  ['#fff8e1','#ffecb3'], ['#fbe9e7','#ffccbc'], ['#f1f8e9','#dcedc8'],
-  ['#ede7f6','#d1c4e9'],
-];
-
-// ======== PWA ========
+// PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'));
 }
 
-// ======== 风格卡片 ========
+// 风格
 const styleGrid = document.getElementById('styleGrid');
 let selectedStyle = '种草';
-
-STYLE_LIST.forEach((s, i) => {
+STYLE_LIST.forEach((s) => {
   const card = document.createElement('div');
   card.className = `style-card${s.label === selectedStyle ? ' selected' : ''}`;
   card.dataset.style = s.label;
@@ -300,34 +336,41 @@ STYLE_LIST.forEach((s, i) => {
   styleGrid.appendChild(card);
 });
 
-// ======== 长度 ========
+// 长度
 document.querySelectorAll('.length-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.length-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   });
 });
-function getSelectedLength() {
-  return document.querySelector('.length-btn.active')?.dataset.length || '中';
-}
+function getSelectedLength() { return document.querySelector('.length-btn.active')?.dataset.length || '中'; }
 
-// ======== 本地存储 ========
+// ======== 存储 ========
 const STORAGE_KEY = 'xiaohongbi_history';
 
 function getHistory() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
 }
-function saveToHistory(topic, style, refs, versions) {
+function saveToHistory(entry) {
   const list = getHistory();
-  list.unshift({ id: Date.now(), topic, style, refs, versions, time: new Date().toLocaleString('zh-CN') });
-  if (list.length > 50) list.length = 50;
+  list.unshift(entry);
+  if (list.length > 100) list.length = 100;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   updateBadge();
 }
-function deleteHistory(id) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(getHistory().filter(i => i.id !== id)));
-  updateBadge(); renderHistory();
+function updateEntry(id, updates) {
+  const list = getHistory();
+  const idx = list.findIndex(e => e.id === id);
+  if (idx === -1) return;
+  Object.assign(list[idx], updates);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  updateBadge();
 }
+function deleteEntry(id) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(getHistory().filter(e => e.id !== id)));
+  updateBadge();
+}
+
 function updateBadge() {
   const badge = document.getElementById('historyBadge');
   const count = getHistory().length;
@@ -335,39 +378,11 @@ function updateBadge() {
   badge.style.display = count > 0 ? 'inline' : 'none';
 }
 
-function renderHistory() {
-  const list = getHistory();
-  const container = document.getElementById('historyList');
-  if (!list.length) {
-    container.innerHTML = `<div class="history-empty"><div class="big-emoji">📝</div><p>还没有保存的文案<br>生成的文案会自动保存在这里</p></div>`;
-    return;
-  }
-  container.innerHTML = list.map(item => {
-    const preview = (item.versions?.[0]?.content || item.versions?.[0] || '').split('\n')[0];
-    return `<div class="history-item">
-      <div class="meta"><span>${esc(item.topic)} · ${esc(item.style)}</span><span>${esc(item.time)}</span></div>
-      <div class="preview">${esc(preview)}</div>
-      <div class="actions">
-        <button class="view-btn" onclick="openHistoryDetail(${item.id})">👁️ 查看</button>
-        <button class="del-btn" onclick="deleteHistory(${item.id})">🗑️ 删除</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function openHistoryDetail(id) {
-  const item = getHistory().find(i => i.id === id);
-  if (!item) return;
-  document.getElementById('modalTitle').textContent = `${item.topic} · ${item.style}`;
-  const body = document.getElementById('modalBody');
-  body.innerHTML = (item.versions || []).map((v, i) => {
-    const text = v.content || v;
-    return `<div class="mv"><div class="vl">版本 ${i+1}</div><div class="vb">${esc(text)}</div></div>`;
-  }).join('');
-  document.getElementById('modalOverlay').classList.add('active');
-}
-
 function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+function toast(msg) {
+  const d = document.createElement('div'); d.className = 'toast'; d.textContent = msg;
+  document.body.appendChild(d); setTimeout(() => d.remove(), 1900);
+}
 
 // ======== 弹窗 ========
 document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modalOverlay').classList.remove('active'));
@@ -384,15 +399,6 @@ document.querySelectorAll('.main-tab').forEach(btn => {
   });
 });
 
-// ======== Toast ========
-function toast(msg) {
-  const d = document.createElement('div');
-  d.className = 'toast';
-  d.textContent = msg;
-  document.body.appendChild(d);
-  setTimeout(() => d.remove(), 1900);
-}
-
 // ======== 生成 ========
 const topicInput = document.getElementById('topic');
 const refsInput = document.getElementById('refs');
@@ -401,8 +407,8 @@ const loading = document.getElementById('loading');
 const errorMsg = document.getElementById('errorMsg');
 const resultArea = document.getElementById('resultArea');
 
+let currentEntryId = null;
 let currentVersions = [];
-let currentTopic = '';
 
 generateBtn.addEventListener('click', generate);
 topicInput.addEventListener('keydown', e => { if (e.key === 'Enter') generate(); });
@@ -411,32 +417,36 @@ async function generate() {
   const topic = topicInput.value.trim();
   if (!topic) { showError('请输入话题或产品名称'); topicInput.focus(); return; }
 
-  currentTopic = topic;
   hideError();
   resultArea.innerHTML = '';
   loading.style.display = 'block';
   generateBtn.disabled = true;
 
   try {
-    const body = {
-      topic,
-      style: selectedStyle,
-      length: getSelectedLength(),
-      count: 2,
-      references: refsInput.value.trim(),
-    };
-
+    const body = { topic, style: selectedStyle, length: getSelectedLength(), count: 2, references: refsInput.value.trim() };
     const res = await fetch('/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || '生成失败');
 
     currentVersions = data.versions || [];
-    renderResults(currentVersions);
-    saveToHistory(topic, selectedStyle, refsInput.value.trim(), currentVersions);
+
+    // 保存完整记录
+    const entry = {
+      id: Date.now(),
+      topic: body.topic,
+      style: selectedStyle,
+      length: getSelectedLength(),
+      references: refsInput.value.trim(),
+      versions: currentVersions,
+      pickedIndex: -1,
+      time: new Date().toLocaleString('zh-CN'),
+      ts: Date.now(),
+    };
+    currentEntryId = entry.id;
+    saveToHistory(entry);
+    renderResults(currentVersions, entry);
   } catch (err) {
     showError(err.message);
   } finally {
@@ -445,16 +455,17 @@ async function generate() {
   }
 }
 
-function renderResults(versions) {
+function renderResults(versions, entry) {
   resultArea.innerHTML = versions.map((v, i) => {
-    return `<div class="result-item">
+    const isPicked = entry && entry.pickedIndex === i;
+    return `<div class="result-item${isPicked ? ' picked' : ''}">
       <div class="result-body">
-        <div class="result-title">${esc(v.title)}</div>
+        <div class="result-title">${esc(v.title)}${isPicked ? '<span class="picked-badge">已选</span>' : ''}</div>
         <div class="result-content">${esc(v.content)}</div>
         ${v.tags ? `<div class="result-tags">${esc(v.tags)}</div>` : ''}
       </div>
       <div class="result-actions">
-        <button class="btn-copy" onclick="copyAndGo(${i})">📋 复制 & 去小红书</button>
+        <button class="btn-pick${isPicked ? ' picked' : ''}" onclick="pickVersion(${i})">${isPicked ? '✅ 已选' : '⭐ 选这个'}</button>
         <button class="btn-xhs" onclick="copyAndGo(${i})"><span class="icon">📕</span> 复制 & 去发布</button>
       </div>
     </div>`;
@@ -462,60 +473,107 @@ function renderResults(versions) {
   resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function getVersionText(i) {
-  const v = currentVersions[i];
-  if (!v) return '';
-  return `${v.title}\n\n${v.content}\n${v.tags || ''}`;
+function pickVersion(idx) {
+  if (!currentEntryId) return;
+  const entry = getHistory().find(e => e.id === currentEntryId);
+  if (!entry) return;
+  entry.pickedIndex = entry.pickedIndex === idx ? -1 : idx;
+  updateEntry(entry.id, { pickedIndex: entry.pickedIndex });
+  renderResults(entry.versions, entry);
+  toast(entry.pickedIndex >= 0 ? '✅ 已标记为最佳版本' : '已取消标记');
 }
 
-async function copyAndGo(i) {
-  const text = getVersionText(i);
-  if (!text) return;
-
+function copyAndGo(i) {
+  const v = currentVersions[i];
+  if (!v) return;
+  const text = `${v.title}\n\n${v.content}\n${v.tags || ''}`;
   let ok = false;
   try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      ok = true;
-    } else {
-      const ta = document.createElement('textarea');
-      ta.value = text;
+    if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(text); ok = true; }
+    else {
+      const ta = document.createElement('textarea'); ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(ta);
-      ta.focus(); ta.select();
-      ok = document.execCommand('copy');
-      document.body.removeChild(ta);
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      ok = document.execCommand('copy'); document.body.removeChild(ta);
     }
   } catch { ok = false; }
-
-  if (ok) {
-    toast('✅ 文案已复制，正在打开小红书…');
-  } else {
-    toast('复制失败，请手动复制');
-  }
-
-  // 尝试跳转小红书 App，失败则打开网页版
-  // iOS URL Scheme
-  const xhsURL = 'xhsshare://publish';
-  // 网页版 fallback
-  const xhsWeb = 'https://www.xiaohongshu.com/explore';
-
-  // 先试 App URL Scheme
-  const link = document.createElement('a');
-  link.href = xhsURL;
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  // App 没响应就 fallback 到网页
-  setTimeout(() => {
-    window.open(xhsWeb, '_blank');
-  }, 800);
+  toast(ok ? '✅ 文案已复制，正在打开小红书…' : '复制失败');
+  const a = document.createElement('a'); a.href = 'xhsshare://publish';
+  a.style.display = 'none'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => window.open('https://www.xiaohongshu.com/explore', '_blank'), 800);
 }
 
 function showError(msg) { errorMsg.textContent = msg; errorMsg.style.display = 'block'; }
 function hideError() { errorMsg.style.display = 'none'; }
+
+// ======== 历史 ========
+function renderHistory() {
+  const list = getHistory();
+  const container = document.getElementById('historyList');
+  if (!list.length) {
+    container.innerHTML = `<div class="history-empty"><div class="big-emoji">📝</div><p>还没有生成记录<br>每次生成都会自动保存到这里</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(e => {
+    const preview = (e.versions?.[0]?.content || '').split('\n')[0];
+    const refPreview = e.references ? e.references.split('\n')[0] : '';
+    const hasPicked = e.pickedIndex >= 0;
+    return `<div class="history-item${hasPicked ? ' has-pick' : ''}" onclick="openEntryDetail(${e.id})">
+      <div class="meta">
+        <span>${esc(e.topic)} · ${esc(e.style)}${hasPicked ? ' <span class="pick-tag">⭐已选</span>' : ''}</span>
+        <span>${esc(e.time)}</span>
+      </div>
+      <div class="preview">${esc(preview)}</div>
+      ${refPreview ? `<div class="ref-preview">📋 ${esc(refPreview)}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function openEntryDetail(id) {
+  const entry = getHistory().find(e => e.id === id);
+  if (!entry) return;
+  document.getElementById('modalTitle').textContent = `${entry.topic} · ${entry.style}`;
+
+  // 参考信息
+  const refEl = document.getElementById('modalRef');
+  refEl.innerHTML = entry.references
+    ? `<div class="r-label">📋 参考信息</div>${esc(entry.references)}`
+    : '';
+
+  // 版本列表
+  const body = document.getElementById('modalBody');
+  body.innerHTML = (entry.versions || []).map((v, i) => {
+    const isPicked = entry.pickedIndex === i;
+    return `<div class="mv${isPicked ? ' picked' : ''}">
+      <div class="vl">版本 ${i+1}${isPicked ? '<span class="pick-inline">⭐ 已选</span>' : ''}</div>
+      <div class="vb">${esc(v.content)}${v.tags ? '\n' + esc(v.tags) : ''}</div>
+    </div>`;
+  }).join('');
+
+  // 删除按钮
+  document.getElementById('modalDelBtn').onclick = () => {
+    if (!confirm('确定删除本次生成记录？')) return;
+    deleteEntry(entry.id);
+    document.getElementById('modalOverlay').classList.remove('active');
+    renderHistory();
+    toast('已删除');
+  };
+
+  // 复用按钮
+  document.getElementById('modalReuseBtn').onclick = () => {
+    document.getElementById('modalOverlay').classList.remove('active');
+    topicInput.value = entry.topic;
+    refsInput.value = entry.references || '';
+    selectedStyle = entry.style;
+    document.querySelectorAll('.style-card').forEach(c => c.classList.toggle('selected', c.dataset.style === entry.style));
+    document.querySelectorAll('.length-btn').forEach(b => b.classList.toggle('active', b.dataset.length === entry.length));
+    document.querySelector('[data-tab="generate"]').click();
+    topicInput.focus();
+    toast('✅ 已复用参数，可修改后重新生成');
+  };
+
+  document.getElementById('modalOverlay').classList.add('active');
+}
 
 // ======== 初始化 ========
 updateBadge();
