@@ -124,7 +124,6 @@
       background: #fff; border-radius: 16px; overflow: hidden;
       margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
     }
-    .cover-img {
       width: 100%; height: 180px;
       background: linear-gradient(135deg, #fce4ec, #f8bbd0);
       display: flex; align-items: center; justify-content: center;
@@ -273,7 +272,6 @@ const STYLE_LIST = [
   { emoji: '✈️', label: '旅行' },     { emoji: '💬', label: '情绪共鸣' },
 ];
 
-const COVER_COLORS = [
   ['#fce4ec','#f8bbd0'], ['#e3f2fd','#bbdefb'], ['#fff3e0','#ffe0b2'],
   ['#e8f5e9','#c8e6c9'], ['#f3e5f5','#e1bee7'], ['#e0f7fa','#b2ebf2'],
   ['#fff8e1','#ffecb3'], ['#fbe9e7','#ffccbc'], ['#f1f8e9','#dcedc8'],
@@ -449,11 +447,7 @@ async function generate() {
 
 function renderResults(versions) {
   resultArea.innerHTML = versions.map((v, i) => {
-    const colors = (COVER_COLORS[i % COVER_COLORS.length]).join(',');
     return `<div class="result-item">
-      <div class="cover-img" style="background:linear-gradient(135deg,${colors})">
-        📸 ${esc(v.coverDesc || topicInput.value.trim() + '相关的场景或产品图')}
-      </div>
       <div class="result-body">
         <div class="result-title">${esc(v.title)}</div>
         <div class="result-content">${esc(v.content)}</div>
