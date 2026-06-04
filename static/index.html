@@ -196,13 +196,17 @@
     .modal-overlay.active { display: flex; }
     .modal-content {
       background: #f5f5f7; border-radius: 20px 20px 0 0;
-      width: 100%; max-width: 640px; max-height: 85vh; overflow-y: auto;
+      width: 100%; max-width: 640px; max-height: 85vh;
       padding: 20px; animation: slideUp .3s ease;
+      display: flex; flex-direction: column;
+    }
+    .modal-scroll {
+      flex: 1; overflow-y: auto; min-height: 0;
     }
     @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     .modal-header {
       display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-      position: sticky; top: 0; background: #f5f5f7; padding-bottom: 12px; z-index: 1;
+      padding-bottom: 12px;
     }
     .modal-header h3 { font-size: 18px; }
     .modal-close { background: none; border: none; font-size: 24px; color: #86868b; cursor: pointer; padding: 4px; }
@@ -297,8 +301,10 @@
       <h3 id="modalTitle">生成本详情</h3>
       <button class="modal-close" id="modalClose">✕</button>
     </div>
+    <div class="modal-scroll">
     <div id="modalRef" class="modal-ref"></div>
     <div class="modal-body" id="modalBody"></div>
+    </div>
     <div class="modal-footer">
       <button class="btn-del" id="modalDelBtn">🗑️ 删除本次</button>
       <button class="btn-reuse" id="modalReuseBtn">📝 复用参数继续生成</button>
